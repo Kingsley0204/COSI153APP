@@ -4,6 +4,8 @@ import React, { useState } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { Image, TextInput, Button, StyleSheet, Text, View } from 'react-native';
 import { createStackNavigator } from '@react-navigation/stack';
+import Food from './components/Food'
+
 
 const Stack = createStackNavigator();
 
@@ -30,6 +32,8 @@ export default function App () {
           <Stack.Screen name="Schedule" component={App2} />
           <Stack.Screen name="Weight" component={WeightChart} />
           <Stack.Screen name="About" component={AboutScreen} />
+          <Stack.Screen name="Meal" component={Meal} />
+
         </Stack.Navigator>
     </NavigationContainer>
   );
@@ -60,12 +64,20 @@ const HomeScreen = ({ navigation }) => {
         }
       />
       <Button
-        title="About"
+        title="Meal"
         color="black"
+        onPress={() =>
+          navigation.navigate('Meal')
+        }
+      />
+      <Button
+        title="About"
+        color="grey"
         onPress={() =>
           navigation.navigate('About')
         }
       />
+
     </View>
   );
 };
@@ -83,6 +95,8 @@ const ProfileScreen = ({ navigation, route }) => {
 };
 
 const WeightChart = ({ navigation, route }) => {
+  const [text, setText] = useState(0);
+
   return (
     <View>
       <Text>Here is a graph of the cat's Weight for the last month</Text>
@@ -135,7 +149,7 @@ const App2 = ({navigation,route}) => {
 const Cat = (props) => {
   const [shotTaken, setShotTaken] = useState(true);
   const [text1, setText1] = useState(props.name);
-  const [text2, setText3] = useState(props.date);
+  const [text2, setText2] = useState(props.date);
 
 
   return (
@@ -171,6 +185,14 @@ const Cat = (props) => {
     </View>
   );
 }
+
+const Meal = ({ navigation, route }) => {
+  return (
+    <View>
+       <Food totalCalories={200} />
+    </View>
+  );
+};
 
 const styles = StyleSheet.create({
   container: {
